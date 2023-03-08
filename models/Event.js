@@ -23,7 +23,7 @@ Event.init(
       type: DataTypes.STRING
     },
     event_date: {
-      type: DataTypes.DATE
+      type: DataTypes.JSON
     },
     event_image: {
       type: DataTypes.JSON
@@ -33,10 +33,10 @@ Event.init(
     },
     client_id: {
         type: DataTypes.INTEGER,
-        references: {
-          model: 'user',
-          key: 'id',
-        },
+        // references: {
+        //   model: 'user',
+        //   key: 'id',
+        // },
       },
   },
   {
@@ -44,7 +44,7 @@ Event.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'Event'
+    modelName: 'event'
   }
 );
 
