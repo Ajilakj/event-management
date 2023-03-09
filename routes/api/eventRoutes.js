@@ -1,15 +1,45 @@
 const router = require('express').Router();
-
 // Import the model
 const Event = require('../../models/Event');
 
+ // get all the events api/events
 router.get('/', (req, res) => {
-  // get all the events api/events
   Event.findAll().then((eventData) => {
     res.json(eventData);
   });
 });
 
+ // get all the events for a particular client 
+router.get('/:clientID', (req, res) => {
+  // Get one event from the event table
+  Event.findAll(
+    {
+      where: {
+        client_id: req.params.clientID 
+          
+      },
+
+    }
+  ).then((eventData) => {
+    res.json(eventData);
+  });
+});
+
+ // get one  event with eventId
+// router.get('/:eventID', (req, res) => {
+//   // Get one event from the event table
+//   Event.findOne(
+//     {
+//       where: {
+//         event_id: req.params.eventID 
+          
+//       },
+
+//     }
+//   ).then((eventData) => {
+//     res.json(eventData);
+//   });
+// });
 // router.get('/:eventID', (req, res) => {
 //   // Get one event from the event table
 //   event.findAll(
