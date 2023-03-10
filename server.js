@@ -12,9 +12,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(routes);
 
-app.use(cors({
-  origin: '*'
-}));
+// app.use(cors({
+//   origin: '*'
+// }));
 
 // app.get("/",function(req,res){
 //   res.send("Hello world deployment")
