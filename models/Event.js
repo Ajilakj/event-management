@@ -5,7 +5,7 @@ class Event extends Model {}
 
 Event.init(
   {
-    event_id : {
+    id : {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true

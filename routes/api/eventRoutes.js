@@ -17,7 +17,7 @@ router.get('/:eventID', (req, res) => {
   Event.findOne(
     {
       where: {
-        event_id: req.params.eventID 
+        id: req.params.eventID 
           
       },
 
@@ -85,7 +85,7 @@ router.get('/client/:clientID', (req, res) => {
 //   // This could also be moved to a separate Node.js script to ensure it only happens once
 //   Event.bulkCreate([
 //     {
-//       event_id:1,
+//       id:1,
 //       event_title: "Voices of Women in Tech: Overcoming Obstacles and Building Careers",
 //       event_location:"New York",
 //       event_data: "Women's History Month empowers women around the world with the courage, self-esteem and willpower to succeed with confidence. Celebrating women's history and accomplishments can also help inspire current and future generations to emulate the women who laid the framework for us to succeed and to be treated equitably in society.",
@@ -94,7 +94,7 @@ router.get('/client/:clientID', (req, res) => {
 //       client_id:1
 //     },
 //     {
-//       event_id:2,
+//       id:2,
 //       event_title: "The Psychology of the Job Search",
 //       event_location:"New Jersey",
 //       event_data: "This workshop is designed for job seekers to gain insight on how your mind can work for you or against you and remain motivated despite the personal struggle and challenging odds of the job search.",
