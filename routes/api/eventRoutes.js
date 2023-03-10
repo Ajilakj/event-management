@@ -32,7 +32,7 @@ router.get('/search/:title', (req, res) => {
     Event.findAll(
       {
         where: {
-          event_title: {
+          title: {
               [Op.like]: '%' + req.params.title + '%'
               
           }

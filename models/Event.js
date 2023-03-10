@@ -10,25 +10,28 @@ Event.init(
       primaryKey: true,
       autoIncrement: true
     },
-    event_title: {
+    title: {
       type: DataTypes.STRING
     },
-    event_location: {
+    location: {
       type: DataTypes.JSON
     },
-    event_data: {
+    data: {
       type: DataTypes.JSON
     },
-    event_tag: {
+    tag: {
       type: DataTypes.STRING
     },
-    event_date: {
+    dates_and_time: {
       type: DataTypes.JSON
     },
-    event_image: {
+    end_date:{
+      type:DataTypes.DATE
+    },
+    image: {
       type: DataTypes.JSON
     },
-    event_date_created: {
+    date_created: {
         type: DataTypes.DATE
     },
     client_id: {
