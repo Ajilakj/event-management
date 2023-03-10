@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { Op } = require("sequelize");
 // Import the model
 const Event = require('../../models/Event');
 
@@ -26,9 +27,41 @@ router.get('/:eventID', (req, res) => {
   });
 });
 
+router.get('/search/:title', (req, res) => {
+    // Get all event from the event table if location matches
+    Event.findAll(
+      {
+        where: {
+          event_title: {
+              [Op.like]: '%' + req.params.title + '%'
+              
+          }
+      }
+  
+      }
+    ).then((eventData) => {
+      res.json(eventData);
+    });
+  });
+  
+// router.get('/:location', (req, res) => {
+//   // Get all event from the event table if location matches
+//   Event.findAll(
+//     {
+//       where: {
+//         event_location: req.params.location 
+          
+//       },
+
+//     }
+//   ).then((eventData) => {
+//     res.json(eventData);
+//   });
+// });
+
 
 router.get('/client/:clientID', (req, res) => {
-  // Get one event from the event table
+  // Get all event from a particular client
   Event.findAll(
     {
       where: {
