@@ -9,8 +9,25 @@ router.get('/', (req, res) => {
   });
 });
 
- // get all the events for a particular client 
-router.get('/:clientID', (req, res) => {
+
+//  get one  event with eventId
+router.get('/:eventID', (req, res) => {
+  // Get one event from the event table
+  Event.findOne(
+    {
+      where: {
+        event_id: req.params.eventID 
+          
+      },
+
+    }
+  ).then((eventData) => {
+    res.json(eventData);
+  });
+});
+
+
+router.get('/client/:clientID', (req, res) => {
   // Get one event from the event table
   Event.findAll(
     {
@@ -25,37 +42,6 @@ router.get('/:clientID', (req, res) => {
   });
 });
 
- // get one  event with eventId
-// router.get('/:eventID', (req, res) => {
-//   // Get one event from the event table
-//   Event.findOne(
-//     {
-//       where: {
-//         event_id: req.params.eventID 
-          
-//       },
-
-//     }
-//   ).then((eventData) => {
-//     res.json(eventData);
-//   });
-// });
-// router.get('/:eventID', (req, res) => {
-//   // Get one event from the event table
-//   event.findAll(
-//     // {
-//     //   where: { 
-//     //       category: {
-//     //           '"author"': 
-//     //             req.params.author 
-//     //       }
-//     //   },
-
-//     // }
-//   ).then((eventData) => {
-//     res.json(eventData);
-//   });
-// });
 
 // router.post('/seed', (req, res) => {
 //   // Multiple rows can be created with `bulkCreate()` and an array

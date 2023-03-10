@@ -14,7 +14,7 @@ Event.init(
       type: DataTypes.STRING
     },
     event_location: {
-      type: DataTypes.STRING
+      type: DataTypes.JSON
     },
     event_data: {
       type: DataTypes.JSON
