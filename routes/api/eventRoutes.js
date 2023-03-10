@@ -44,20 +44,24 @@ router.get('/search/:title', (req, res) => {
     });
   });
   
-// router.get('/:location', (req, res) => {
-//   // Get all event from the event table if location matches
-//   Event.findAll(
-//     {
-//       where: {
-//         event_location: req.params.location 
-          
-//       },
-
-//     }
-//   ).then((eventData) => {
-//     res.json(eventData);
-//   });
-// });
+router.get('/search/location/:loc', (req, res) => {
+  // Get all event from the event table if location matches
+  Event.findAll(
+    {
+      where: {
+        location:{
+          '"loc1"':
+          // req.params.loc
+            {
+              [Op.like]: '%' + req.params.loc + '%'
+            },
+      }
+    }
+  }
+  ).then((eventData) => {
+    res.json(eventData);
+  });
+});
 
 
 router.get('/client/:clientID', (req, res) => {
