@@ -12,15 +12,15 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(routes);
 
-// app.use(cors({
-//   origin: '*'
-// }));
+app.use(cors({
+  origin: '*'
+}));
 
 // app.get("/",function(req,res){
 //   res.send("Hello world deployment")
 // })
 
 // Force false so data doesn't get dropped on every sync
-sequelize.sync({ force: false }).then(() => {
+sequelize.sync({ force: true }).then(() => {
   app.listen(PORT, () => console.log('Now listening'));
 });
