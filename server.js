@@ -21,7 +21,6 @@ app.use(function(req, res, next) {
 // your app routes go here...
 app.use(routes);
 
-app.listen(process.env.PORT || 3000);
 
 // Force false so data doesn't get dropped on every sync
 sequelize.sync({ force: false }).then(() => {
