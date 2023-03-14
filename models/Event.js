@@ -16,25 +16,34 @@ Event.init(
     location: {
       type: DataTypes.JSON
     },
+    category:{
+      type: DataTypes.JSON
+    },
     data: {
       type: DataTypes.JSON
     },
     tag: {
       type: DataTypes.STRING
     },
-    dates_and_time: {
+    dates: {
       type: DataTypes.JSON
     },
-    end_date:{
+    endDate:{
       type:DataTypes.DATE
+    },
+    virtual:{
+      type: DataTypes.STRING
+    },
+    timeZone:{
+      type: DataTypes.STRING
     },
     image: {
       type: DataTypes.JSON
     },
-    date_created: {
+    dateCreated: {
         type: DataTypes.DATE
     },
-    client_id: {
+    clientId: {
         type: DataTypes.INTEGER,
         // references: {
         //   model: 'user',
