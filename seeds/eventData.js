@@ -46,7 +46,7 @@ const eventdata = [
           endDate: "2022-08-21T04:00:00.000Z",
           timeZone:"Eastern Standard Time",
           image:"https:\/\/careernetwork.2u.com\/wp-content\/uploads\/2023\/02\/Crafting-an-Industry-Backed-LinkedIn-Profile.jpg?resize=1536,1024",
-          client_id:1
+          clientId:1
         },
         {
           id:2,
@@ -93,7 +93,7 @@ const eventdata = [
           endDate: "2022-08-21T04:00:00.000Z",
           timeZone:"Eastern Standard Time",
           image:"https:\/\/careernetwork.2u.com\/wp-content\/uploads\/2023\/02\/Winning-Resumes-Write-Effective-Bullet-Points.jpg?resize=1536,1152",
-          client_id:2
+          clientId:2
         },
         // {
         //   id:2,
