@@ -69,7 +69,7 @@ router.get('/client/:clientID', (req, res) => {
   Event.findAll(
     {
       where: {
-        client_id: req.params.clientID 
+        clientId: req.params.clientID 
           
       },
 
