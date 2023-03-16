@@ -8,7 +8,7 @@ const eventdata = [
           category: {
             "mainCategory":"Health","subCategory":"Spa"},
           data: {"intro":"intro for event 1","desc":"Women's History Month empowers women around the world with the courage, self-esteem and willpower to succeed with confidence. Celebrating women's history and accomplishments can also help inspire current and future generations to emulate the women who laid the framework for us to succeed and to be treated equitably in society."},
-          dates: {"date1":
+          dates: {"date":[
                  { "startTime": "2:00PM",
                   "endTime": "4:00PM",
                   "date": "2022-08-19T04:00:00.000Z",
@@ -23,7 +23,6 @@ const eventdata = [
                     ]
            
                 },
-                "date2":
                 {
                   "startTime": "2:00PM",
                   "endTime": "4:00PM",
@@ -35,12 +34,12 @@ const eventdata = [
                         }
                     ]
                 },
-                "date3":
                 {
                   "startTime": "2:00PM",
                   "endTime": "4:00PM",
                   "date": "2022-08-21T04:00:00.000Z"
                 }
+          ]
         },
           virtual:"No",
           endDate: "2022-08-21T04:00:00.000Z",
@@ -55,7 +54,7 @@ const eventdata = [
           category: {
             "mainCategory":"Health","subCategory":"Spa"},
             data: {"intro":"intro for event 2","desc":"This workshop is designed for job seekers to gain insight on how your mind can work for you or against you and remain motivated despite the personal struggle and challenging odds of the job search."},
-          dates: {"date1":
+          dates: {"date":
                  { "startTime": "2:00PM",
                   "endTime": "4:00PM",
                   "date": "2022-08-19T04:00:00.000Z",
@@ -70,7 +69,7 @@ const eventdata = [
                     ]
            
                 },
-                "date2":
+                "date":
                 {
                   "startTime": "2:00PM",
                   "endTime": "4:00PM",
@@ -82,7 +81,7 @@ const eventdata = [
                         }
                     ]
                 },
-                "date3":
+                "date":
                 {
                   "startTime": "2:00PM",
                   "endTime": "4:00PM",
