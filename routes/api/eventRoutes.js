@@ -5,9 +5,53 @@ const Event = require('../../models/Event');
 
  // get all the events api/events
 router.get('/', (req, res) => {
-  Event.findAll().then((eventData) => {
-    res.json(eventData);
-  });
+
+  let keyword =   req.query.keyword;
+  let category =   req.query.category;
+  let location =   req.query.location;
+console.log(keyword);
+console.log(category);
+console.log(location);
+  if(keyword===undefined && category===undefined && location===undefined){
+    Event.findAll()
+    .then((eventData) => {
+      res.json(eventData);
+    });
+  }
+  else{
+    if(category==="all" && location==="all"){
+      Event.findAll(
+        {
+          where: {
+            title: {
+                [Op.like]: '%' + keyword + '%'
+            }
+        }
+      }).then((eventData) => {
+        res.json(eventData);
+      });
+    }
+    else{
+      Event.findAll(
+        {
+          //  where: {"category = ? AND location = ?": [req.query.category, req.query.location] }
+          where: {
+            title: {
+              [Op.like]: '%' + keyword + '%'
+            },
+            category: {
+              [Op.like]: '%' + category + '%'
+              },
+            location: {
+              [Op.like]: '%' + location + '%'
+            }
+        }
+      }
+    ).then((eventData) => {
+      res.json(eventData);
+    });
+  }
+  }
 });
 
 
@@ -18,50 +62,46 @@ router.get('/:eventID', (req, res) => {
     {
       where: {
         id: req.params.eventID 
-          
-      },
-
+      }
     }
   ).then((eventData) => {
     res.json(eventData);
   });
 });
 
-router.get('/search/:title', (req, res) => {
-    // Get all event from the event table if location matches
-    Event.findAll(
-      {
-        where: {
-          title: {
-              [Op.like]: '%' + req.params.title + '%'
-              
-          }
-      }
+// router.get('/search/:title', (req, res) => {
+//     // Get all event from the event table if location matches
+//     Event.findAll(
+//       {
+//         where: {
+//           title: {
+//               [Op.like]: '%' + req.params.title + '%'
+//           }
+//       }
+//       }
+//     ).then((eventData) => {
+//       res.json(eventData);
+//     });
+//   });
   
-      }
-    ).then((eventData) => {
-      res.json(eventData);
-    });
-  });
-  
-router.get('/search/location/:loc', (req, res) => {
-  // Get all event from the event table if location matches
-  Event.findAll(
-    {
-      where: {
-        location:{
-          '"loc1"':
-          // req.params.loc
-            {
-              [Op.like]: '%' + req.params.loc + '%'
-            },
-      }
-    }
-  }
-  ).then((eventData) => {
-    res.json(eventData);
-  });
-});
+// router.get('/search/location/:loc', (req, res) => {
+//   // Get all event from the event table if location matches
+//   Event.findAll(
+//     {
+//       where: {
+//         location:{
+//           '"loc1"':
+//           // req.params.loc
+//             {
+//               [Op.like]: '%' + req.params.loc + '%'
+//             }
+//       }
+//     }
+//   }
+//   ).then((eventData) => {
+//     res.json(eventData);
+//   });
+// });
 
 
 router.get('/client/:clientID', (req, res) => {
@@ -70,9 +110,7 @@ router.get('/client/:clientID', (req, res) => {
     {
       where: {
         clientId: req.params.clientID 
-          
-      },
-
+      }
     }
   ).then((eventData) => {
     res.json(eventData);
