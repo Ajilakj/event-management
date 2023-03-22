@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 console.log(keyword);
 console.log(category);
 console.log(location);
-  if(keyword===undefined && category===undefined && location===undefined){
+  if((keyword==="all" && category==="all" && location==="all")||(keyword===undefined && category===undefined && location===undefined)){
     Event.findAll()
     .then((eventData) => {
       res.json(eventData);
