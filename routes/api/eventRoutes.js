@@ -7,19 +7,19 @@ const Event = require('../../models/Event');
 router.get('/', (req, res) => {
 
   let keyword =   req.query.keyword;
-  let category =   req.query.category;
+  let categoryField =   req.query.category;
   let location =   req.query.location;
-console.log(keyword);
-console.log(category);
-console.log(location);
-  if((keyword==="all" && category==="all" && location==="all")||(keyword===undefined && category===undefined && location===undefined)){
+// console.log(keyword);
+// console.log(category);
+// console.log(location);
+  if((keyword==="all" && categoryField==="all" && location==="all")||(keyword===undefined && categoryField===undefined && location===undefined)){
     Event.findAll()
     .then((eventData) => {
       res.json(eventData);
     });
   }
   else{
-    if(category==="all" && location==="all"){
+    if(categoryField==="all" && location==="all"){
       Event.findAll(
         {
           where: {
@@ -31,6 +31,36 @@ console.log(location);
         res.json(eventData);
       });
     }
+    else if(keyword==="all" && location==="all"){
+        Event.findAll(
+          {
+            where: {
+              category: {
+                // [Op.contains]:  categoryField 
+                // [Op.contains]:[categoryField]
+                // [Op.overlap]:categoryField
+                //  $contains: categoryField
+                [Op.like]:  ['%' + categoryField + '%']
+                },
+          }
+        }).then((eventData) => {
+          res.json(eventData);
+        });
+      }
+      else if(categoryField==="all" && keyword==="all"){
+          Event.findAll(
+            {
+              where: {
+                location: {
+                  city:{
+                  [Op.like]:  '%' + location + '%'
+                  }
+                }
+            }
+          }).then((eventData) => {
+            res.json(eventData);
+          });
+        }
     else{
       Event.findAll(
         {
@@ -40,10 +70,10 @@ console.log(location);
               [Op.like]: '%' + keyword + '%'
             },
             category: {
-              [Op.like]: '%' + category + '%'
+              [Op.like]:  ['%' + categoryField + '%']
               },
             location: {
-              [Op.like]: '%' + location + '%'
+              [Op.like]:  ['%' + location + '%']
             }
         }
       }
