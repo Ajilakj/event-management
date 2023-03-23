@@ -1,5 +1,7 @@
 const router = require('express').Router();
+const sequelize = require('../../config/connection');
 const { Op } = require("sequelize");
+// const Utils = Sequelize.Utils;
 // Import the model
 const Event = require('../../models/Event');
 
@@ -8,30 +10,35 @@ router.get('/', (req, res) => {
 
   let keyword =   req.query.keyword;
   let categoryField =   req.query.category;
-  let location =   req.query.location;
-// console.log(keyword);
-// console.log(category);
-// console.log(location);
-  if((keyword==="all" && categoryField==="all" && location==="all")||(keyword===undefined && categoryField===undefined && location===undefined)){
+  let locationField =   req.query.location;
+  if((keyword==="all" && categoryField==="all" && locationField==="all")||(keyword===undefined && categoryField===undefined && locationField===undefined)){
     Event.findAll()
     .then((eventData) => {
       res.json(eventData);
     });
   }
   else{
-    if(categoryField==="all" && location==="all"){
-      Event.findAll(
-        {
-          where: {
-            title: {
-                [Op.like]: '%' + keyword + '%'
-            }
-        }
+    if(categoryField==="all" && locationField==="all"){
+      // Event.findAll(
+      // //   {
+      // //     where: {
+      // //       title: {
+      // //           [Op.like]: '%' + keyword + '%'
+      // //       }
+      // //   }
+      // }
+      // )
+      // .then((eventData) => {
+      //   res.json(eventData);
+      // });
+      eventData = sequelize.query('SELECT * FROM Event WHERE title like '+"'%" + keyword + "%'" , {
+        // type: sequelize.QueryTypes.SELECT
+
       }).then((eventData) => {
-        res.json(eventData);
-      });
+          res.json(eventData);
+        });
     }
-    else if(keyword==="all" && location==="all"){
+    else if(keyword==="all" && locationField==="all"){
         Event.findAll(
           {
             where: {
@@ -51,9 +58,10 @@ router.get('/', (req, res) => {
           Event.findAll(
             {
               where: {
+                
                 location: {
                   city:{
-                  [Op.like]:  '%' + location + '%'
+                  [Op.like]:  '%' + locationField + '%'
                   }
                 }
             }
@@ -73,7 +81,7 @@ router.get('/', (req, res) => {
               [Op.like]:  ['%' + categoryField + '%']
               },
             location: {
-              [Op.like]:  ['%' + location + '%']
+              [Op.like]:  ['%' + locationField + '%']
             }
         }
       }
