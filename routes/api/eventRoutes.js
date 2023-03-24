@@ -70,6 +70,58 @@ router.get('/', (req, res) => {
             res.json(eventData);
           });
         }
+        else if(keyword==="all"){
+          Event.findAll(
+            {
+              where: {
+                
+                location: {
+                  city:{
+                  [Op.like]:  '%' + locationField + '%'
+                  }
+                },
+                category: {
+                  [Op.like]:  ['%' + categoryField + '%']
+                  },
+            }
+          }).then((eventData) => {
+            res.json(eventData);
+          });
+        }
+        else if(categoryField==="all"){
+          Event.findAll(
+            {
+              where: {
+                
+                location: {
+                  city:{
+                  [Op.like]:  '%' + locationField + '%'
+                  }
+                },
+                title: {
+                  [Op.like]: '%' + keyword + '%'
+                },
+            }
+          }).then((eventData) => {
+            res.json(eventData);
+          });
+        }
+        else if(locationField==="all"){
+          Event.findAll(
+            {
+              where: {
+                
+                title: {
+                  [Op.like]: '%' + keyword + '%'
+                },
+                category: {
+                  [Op.like]:  ['%' + categoryField + '%']
+                  },
+            }
+          }).then((eventData) => {
+            res.json(eventData);
+          });
+        }
     else{
       Event.findAll(
         {
@@ -81,9 +133,11 @@ router.get('/', (req, res) => {
             category: {
               [Op.like]:  ['%' + categoryField + '%']
               },
-            location: {
-              [Op.like]:  ['%' + locationField + '%']
-            }
+              location: {
+                city:{
+                [Op.like]:  '%' + locationField + '%'
+                }
+              },
         }
       }
     ).then((eventData) => {
