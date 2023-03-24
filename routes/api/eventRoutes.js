@@ -6,7 +6,7 @@ const { Op } = require("sequelize");
 const Event = require('../../models/Event');
 
  // get all the events api/events
-router.get('/', async (req, res) => {
+router.get('/', (req, res) => {
 
   let keyword =   req.query.keyword;
   let categoryField =   req.query.category;
@@ -31,18 +31,16 @@ router.get('/', async (req, res) => {
       // .then((eventData) => {
       //   res.json(eventData);
       // });
-      const eventData = await sequelize.query('SELECT * FROM Event WHERE title like '+"'%" + keyword + "%'" , {
+      eventData = sequelize.query('SELECT * FROM Event WHERE title like '+"'%" + keyword + "%'" , {
         type: sequelize.QueryTypes.SELECT
-        
-      });
-      console.log(eventData);
-      if (!eventData) {
-        return res.status(404).json({ message: "SORRY ... No data found" })
-      }
-      res.json(eventData);
+
+      }).then((eventData) => {
+        if(eventData){}
+          res.json(eventData);
+        });
     }
     else if(keyword==="all" && locationField==="all"){
-      const eventData = await Event.findAll(
+        Event.findAll(
           {
             where: {
               category: {
@@ -53,49 +51,44 @@ router.get('/', async (req, res) => {
                 [Op.like]:  ['%' + categoryField + '%']
                 },
           }
+        }).then((eventData) => {
+          res.json(eventData);
         });
-
-        if (eventData.length===0) {
-          return res.status(404).json({ message: "SORRY ... No data found" })
-        }
-        res.json(eventData);
       }
       else if(categoryField==="all" && keyword==="all"){
-        const eventData = await Event.findAll(
+          Event.findAll(
             {
               where: {
-                 
+                
                 location: {
                   city:{
                   [Op.like]:  '%' + locationField + '%'
                   }
                 }
             }
+          }).then((eventData) => {
+            res.json(eventData);
           });
-           if (eventData.length===0) {
-            return res.status(404).json({ message: "SORRY ... No data found" })
-          }
-          res.json(eventData);
         }
     else{
-      const eventData = await Event.findAll( {
-        //  where: {"category = ? AND location = ?": [req.query.category, req.query.location] }
-        where: {
-          title: {
-            [Op.like]: '%' + keyword + '%'
-          },
-          category: {
-            [Op.like]:  ['%' + categoryField + '%']
+      Event.findAll(
+        {
+          //  where: {"category = ? AND location = ?": [req.query.category, req.query.location] }
+          where: {
+            title: {
+              [Op.like]: '%' + keyword + '%'
             },
-          location: {
-            [Op.like]:  ['%' + locationField + '%']
-          }
+            category: {
+              [Op.like]:  ['%' + categoryField + '%']
+              },
+            location: {
+              [Op.like]:  ['%' + locationField + '%']
+            }
+        }
       }
-    });
-      if (eventData.length===0) {
-        return res.status(404).json({ message: "SORRY ... No data found" })
-      }
+    ).then((eventData) => {
       res.json(eventData);
+    });
   }
   }
 });
@@ -162,5 +155,7 @@ router.get('/client/:clientID', (req, res) => {
     res.json(eventData);
   });
 });
+
+
 
 module.exports = router;
