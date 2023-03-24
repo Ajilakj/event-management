@@ -31,17 +31,15 @@ router.get('/', async (req, res) => {
       // .then((eventData) => {
       //   res.json(eventData);
       // });
-      eventData = sequelize.query('SELECT * FROM Event WHERE title like '+"'%" + keyword + "%'" , {
-        // type: sequelize.QueryTypes.SELECT
-
-      }).then((eventData) => {
-        if(eventData){
-          res.json(eventData);
-        }
-         else{
-          res.send("SORRY ... No data found")
-         }
-        });
+      const eventData = await sequelize.query('SELECT * FROM Event WHERE title like '+"'%" + keyword + "%'" , {
+        type: sequelize.QueryTypes.SELECT
+        
+      });
+      console.log(eventData);
+      if (!eventData) {
+        return res.status(404).json({ message: "SORRY ... No data found" })
+      }
+      res.json(eventData);
     }
     else if(keyword==="all" && locationField==="all"){
       const eventData = await Event.findAll(
