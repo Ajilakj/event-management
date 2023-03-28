@@ -173,6 +173,33 @@ router.post('/', async (req, res) => {
   }
 });
 
+// update events based on eventID
+router.put('/:eventID', async (req, res) => {
+  try {
+    const updatedEvent = await
+  Event.update(
+    {
+      title: req.body.title,
+      location: req.body.location,
+      category: req.body.category,
+      data: req.body.data,
+      dates: req.body.dates,
+      virtual: req.body.virtual,
+      endDate: req.body.endDate,
+      timeZone: req.body.timeZone,
+      image: req.body.image,
+    },
+    {
+      where: {
+        id: req.params.eventID,
+      },
+    }
+  )
+  res.status(200).json(eventData);
+} catch (err) {
+  res.status(400).json(err);
+};
+});
 
 // router.get('/search/:title', (req, res) => {
 //     // Get all event from the event table if location matches
