@@ -1,0 +1,21 @@
+[
+    {
+        "catName":"Music",
+        "subCategory":[
+            "Latin","Hip Hope/Rap","Rock", "Classical"
+        ]
+    },
+    {
+        "catName":"Performing & Visual Arts",
+        "subCategory":[
+            "Comedy","Dance","Theatre", "Painting"
+        ]
+    }
+    ,
+    {
+        "catName":"Holiday",
+        "subCategory":[
+            "Easter","New year Eve","Christmas", "Independence Day"
+        ]
+    }
+]
