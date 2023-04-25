@@ -1,0 +1,55 @@
+/****** Object:  Table [dbo].[tblEvents]    Script Date: 3/5/2023 9:13:03 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[tblEvents](
+	[EventId] [int] IDENTITY(1,1) NOT NULL,
+	[ClientId] [int] NOT NULL,
+	[EventTitle] [nvarchar](1000) NOT NULL,
+	[EventLocation] [nvarchar](max) NULL,
+	[EventData] [nvarchar](max) NULL,
+	[EventTag] [nvarchar](200) NULL,
+	[EventDate] [nvarchar](max) NULL,
+	[EventEndDate] [date] NULL,
+	[EventImage] [nvarchar](max) NULL,
+	[DateCreated] [datetime] NULL,
+ CONSTRAINT [PK_tblEvents] PRIMARY KEY CLUSTERED 
+(
+	[EventId] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[tblEvents] ADD  CONSTRAINT [DF_tblEvents_DateCreated]  DEFAULT (getdate()) FOR [DateCreated]
+GO
+
+
+/****** Object:  StoredProcedure [dbo].[GetEvents]    Script Date: 3/5/2023 9:13:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:      <Author, , Name>
+-- Create Date: <Create Date, , >
+-- Description: <Description, , >
+-- =============================================
+ALTER PROCEDURE [dbo].[GetEvents]
+	@EventId int =NULL,
+	@ClientId int = NULL
+AS
+BEGIN
+    -- SET NOCOUNT ON added to prevent extra result sets from
+    -- interfering with SELECT statements.
+    SET NOCOUNT ON
+
+    -- Insert statements for procedure here
+    SELECT EventId as id, EventTitle, EventData, EventDate, EventImage from [dbo].[tblEvents]
+	WHERE (@EventId IS NULL OR EventID=@EventId   )
+	AND  (@ClientId IS NULL OR ClientID=@ClientId   )
+	FOR JSON PATH;
+
+END
